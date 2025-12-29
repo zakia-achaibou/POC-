@@ -114,24 +114,38 @@ Temps : O(D·T·N).
 
 Mémoire : O(N·D).
 
+
 ## 6) Narratives et cas d’usage (reproductibles)
-
-### 6.1 Cas d’usage minimal (POC)
-
-Workspace 2D, obstacles statiques.
-
-Départ S et cible T.
-
-Paramètres : 
-𝑁
-=
-30
-N=30, Itermax=150, D choisi (ex : 5).
-
+### 6.1 Cas d’usage minimal (POC) 
+- Workspace 2D, obstacles statiques. 
+- Départ S et cible T.
+- Paramètres : \(N=30\), Itermax=150, D choisi (ex : 5).
 ### 6.2 Reproductibilité (seed)
-
-```python
+python
 import numpy as np, random
 SEED = 42
 np.random.seed(SEED)
 random.seed(SEED)
+ ## 7) Expériences numériques
+ ## 8) Analyse :bénéfices, limites, hypothèses de simplification 
+ ### 8.1 Points forts  
+ SLPSO est supérieur à PSO/GA sur le coût global et la vitesse de convergence sur plusieurs D.
+ ### 8.2 Limites + hypothèse de simplification 
+ **Hypothèse de simplification proposée** : *ne traiter qu’un seul cas d’étude stable* (ex. **D=5**) et l’annoncer comme limite. 
+ Justification : lorsque D augmente, la complexité et la difficulté augmentent ; l’article observe que les performances se dégradent au‑delà d’un certain point et que D≈20 est souvent un bon compromis. Autres limites POC : - risque approché (échantillonnage) ≠ risque exact (Eq.5), - lissage Ferguson spline non implémenté. 
+ ### 8.3 Reproductibilité  
+ Les paramètres clés sont fournis (N, Uf, η3, poids w1..w3), mais certains détails d’implémentation (collision/risk, discrétisation exacte) restent implicites. 
+ 
+ ## 9) Plan de codage suivi 
+ 0. Modélisation de l’environnement
+ 1. Modélisation de la trajectoire du robot (TrajectoireModel)
+ 2. Évaluation du chemin (fonction de coût) (EvaluateurChemin)
+ 3. Implémentation du SLPSO ;
+    3.1 Particle (création) ;
+    3.2 4 stratégies (a,b,c,d) ;
+    3.3 auto‑adaptation (ratios, Uf);
+    3.4 gestion des bornes (Vmax + réflexion)
+ 4. Visualisation (trajectoire + convergence + métriques)
+    
+ ## 10) Références
+ - Li G S, Chou W S. Path planning for mobile robot using self-adaptive learning particle swarm optimization. Sci China Inf Sci, 2018, 61(5): 052204, doi: 10.1007/s11432-016-911 .
