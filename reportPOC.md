@@ -106,6 +106,7 @@ Entrées : environnement, S, T, D, N, Itermax, Uf, paramètres (w1,w2,w3, η3, V
           évaluer J ; mettre à jour Pbest/Gbest
 5. Sortie : meilleur chemin = local_to_global(Gbest)
 Ce flux correspond à l’Algorithm 1.
+'''
 
 ## 5.2 Complexité
 
